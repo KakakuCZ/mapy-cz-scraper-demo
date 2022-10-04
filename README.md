@@ -1,0 +1,1 @@
+# mapy-cz-scraper-demo
