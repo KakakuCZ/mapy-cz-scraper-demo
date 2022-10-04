@@ -1,1 +1,1 @@
-# mapy-cz-scraper-demo
+# sreality-cz-scraper-demo
