@@ -32,7 +32,9 @@
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "dev": "PGHOST=localhost PGPORT=5432 PGDATABASE=sreality PGUSER=postgres PGPASSWORD=root concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
-    "dev-test": "PGHOST=localhost PGPORT=5432 PGDATABASE=sreality PGUSER=postgres PGPASSWORD=root nodemon"
+    "dev-local": ". ./.environment_configuration.local && nodemon",
+    "prod-local": ". ./.environment_configuration.local && NODE_ENV=production node dist/server/server.js",
+    "build": "next build && tsc --project tsconfig.server.json",
+    "prod": "NODE_ENV=production node dist/server/server.js"
   }
 }

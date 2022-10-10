@@ -4,15 +4,20 @@ networks:
   sreality-demo:
 
 volumes:
-  postgres-data:
+  pg-data:
+    driver: local
 
 services:
   postgres:
     networks:
       - sreality-demo
     image: postgres:14.5
+    volumes:
+      - ./postgres-vol/data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_PASSWORD: root
+      POSTGRES_DB: sreality
     ports:
       - "5432:5432"
 
@@ -22,3 +27,16 @@ services:
     image: adminer
     ports:
       - "8085:8080"
+  app:
+    build: .
+    networks:
+      - sreality-demo
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: sreality
+      PGUSER: postgres
+      PGPASSWORD: root
+    ports:
+      - "8080:80"
+
